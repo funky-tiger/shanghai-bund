@@ -4,6 +4,9 @@ const loader = new THREE.TextureLoader();
 /** 材质颜色常量 */
 const MATERIAL_COLOR = "rgb(120, 120, 120)";
 
+/** 调整阴影的锯齿 默认值512  数值是1024的整数倍 数值越大 锯齿感越小 要求的显卡性能越高  */
+const SHADOW_MAPSIZE = 3072;
+
 /** 上海中心大厦坐标位置 */
 const shanghaiTowerPosition = { x: 25, y: 17, z: -30 };
 
@@ -929,11 +932,9 @@ function getSpotLight(intensity) {
   let light = new THREE.PointLight(0xffffff, intensity);
   light.castShadow = true;
   light.receiveShadow = true;
-
-  light.shadow.bias = 0.001;
-  light.shadow.mapSize.width = 2048;
-  light.shadow.mapSize.height = 2048;
-
+  light.shadow.bias = 0.0005;
+  light.shadow.mapSize.width = SHADOW_MAPSIZE;
+  light.shadow.mapSize.height = SHADOW_MAPSIZE;
   return light;
 }
 
